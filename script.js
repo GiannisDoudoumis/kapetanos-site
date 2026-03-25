@@ -74,28 +74,55 @@ applyLanguage(initialLanguage);
 // GA4 (free) with consent gate
 // ---------------------------
 const GA_MEASUREMENT_ID = "G-JQRC04HSDG";
-let ga4Loaded = false;
+let ga4Initialized = false;
+let ga4ConsentApplied = false;
 
-const loadGA4 = () => {
-  if (ga4Loaded) return;
-  ga4Loaded = true;
+const initGA4ConsentMode = () => {
+  if (ga4Initialized) return;
+  ga4Initialized = true;
 
   window.dataLayer = window.dataLayer || [];
-  // Define gtag immediately so config calls are queued until gtag.js loads.
   window.gtag = function () {
     window.dataLayer.push(arguments);
   };
 
+  // Inject gtag.js early so Google can detect it.
   const script = document.createElement("script");
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
   document.head.appendChild(script);
 
   window.gtag("js", new Date());
+
+  // Default consent: denied until user accepts.
+  window.gtag("consent", "default", {
+    ad_storage: "denied",
+    analytics_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+  });
+
   window.gtag("config", GA_MEASUREMENT_ID, {
     anonymize_ip: true,
   });
 };
+
+const updateGA4Consent = (granted) => {
+  if (!window.gtag) return;
+  if (ga4ConsentApplied && granted === window.__gaConsentGranted) return;
+  ga4ConsentApplied = true;
+  window.__gaConsentGranted = granted;
+
+  window.gtag("consent", "update", {
+    ad_storage: granted ? "granted" : "denied",
+    analytics_storage: granted ? "granted" : "denied",
+    ad_user_data: granted ? "granted" : "denied",
+    ad_personalization: granted ? "granted" : "denied",
+  });
+};
+
+// Initialize GA4 consent mode immediately (with denied defaults).
+initGA4ConsentMode();
 
 const cookieBanner = document.getElementById("cookieBanner");
 if (cookieBanner) {
@@ -120,10 +147,7 @@ if (cookieBanner) {
       // Ignore storage exceptions in private mode.
     }
     cookieBanner.classList.add("cookie-hidden");
-
-    if (value === "accepted") {
-      loadGA4();
-    }
+    updateGA4Consent(value === "accepted");
   };
 
   if (cookieAccept) {
@@ -134,9 +158,9 @@ if (cookieBanner) {
     cookieReject.addEventListener("click", () => closeWith("rejected"));
   }
 
-  // If user already accepted previously, load GA4 now.
+  // If user already accepted previously, apply consent state immediately.
   if (consent === "accepted") {
-    loadGA4();
+    updateGA4Consent(true);
   }
 }
 
