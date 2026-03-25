@@ -420,22 +420,25 @@
             </div>
           </address>
           <div class="map-wrap">
-            <div class="map-fallback">
+            <div class="map-card">
+              <p
+                class="map-card-hint"
+                data-el="Ο ενσωματωμένος χάρτης δεν λειτουργεί μέσα στο Instagram ή σε άλλα ενσωματωμένα προγράμματα περιήγησης. Πατήστε παρακάτω για να ανοίξει το Google Maps."
+                data-en="Embedded maps do not work inside Instagram or other in-app browsers. Tap below to open Google Maps."
+              >
+                Ο ενσωματωμένος χάρτης δεν λειτουργεί μέσα στο Instagram ή σε άλλα ενσωματωμένα προγράμματα περιήγησης. Πατήστε παρακάτω για να ανοίξει το Google Maps.
+              </p>
               <a
-                class="map-link"
-                href="https://www.google.com/maps?q=Kapetanou+D.+Bros+O.E.+Schinochori+212+00+Greece"
+                class="map-cta"
+                href="https://www.google.com/maps/search/?api=1&amp;query=Kapetanou%20D.%20Bros%20O.E.%20Schinochori%20212%2000%20Greece"
                 target="_blank"
                 rel="noopener noreferrer"
-                data-el="Άνοιγμα χάρτη"
-                data-en="Open map"
+                data-el="Άνοιγμα στο Google Maps"
+                data-en="Open in Google Maps"
               >
-                Άνοιγμα χάρτη
+                Άνοιγμα στο Google Maps
               </a>
-              <button id="loadMapBtn" type="button" class="map-btn" data-el="Εμφάνιση χάρτη" data-en="Show map">
-                Εμφάνιση χάρτη
-              </button>
             </div>
-            <div id="mapContainer" class="map-container" aria-hidden="true"></div>
           </div>
         </div>
       </section>
