@@ -1,0 +1,8 @@
+# llms.txt for afoikapetanou.gr
+# Purpose: provide transparent crawl guidance for LLMs and automated readers.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://afoikapetanou.gr/sitemap.xml
+

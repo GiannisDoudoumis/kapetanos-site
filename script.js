@@ -56,6 +56,11 @@ try {
   const storedLang = localStorage.getItem("siteLang");
   if (storedLang === "el" || storedLang === "en") {
     initialLanguage = storedLang;
+  } else {
+    const urlLang = new URLSearchParams(window.location.search).get("lang");
+    if (urlLang === "en" || urlLang === "el") {
+      initialLanguage = urlLang;
+    }
   } else if (navigator.language && navigator.language.toLowerCase().startsWith("en")) {
     initialLanguage = "en";
   }
@@ -97,4 +102,30 @@ if (cookieBanner) {
   if (cookieReject) {
     cookieReject.addEventListener("click", () => closeWith("rejected"));
   }
+}
+
+// Lazy-load Google Maps iframe after user action.
+const loadMapBtn = document.getElementById("loadMapBtn");
+const mapContainer = document.getElementById("mapContainer");
+
+if (loadMapBtn && mapContainer) {
+  const mapSrc =
+    "https://www.google.com/maps?q=%CE%A3%CF%87%CE%B9%CE%BD%CE%BF%CF%87%CF%8E%CF%81%CE%B9%20212%2000&output=embed";
+
+  loadMapBtn.addEventListener("click", () => {
+    if (mapContainer.querySelector("iframe")) return;
+
+    const iframe = document.createElement("iframe");
+    iframe.title = "Google Maps ELATOS";
+    iframe.loading = "lazy";
+    iframe.allowFullscreen = true;
+    iframe.referrerPolicy = "no-referrer-when-downgrade";
+    iframe.src = mapSrc;
+    iframe.setAttribute("aria-label", "Google Maps");
+    iframe.setAttribute("allow", "fullscreen");
+
+    mapContainer.innerHTML = "";
+    mapContainer.appendChild(iframe);
+    mapContainer.setAttribute("aria-hidden", "false");
+  });
 }

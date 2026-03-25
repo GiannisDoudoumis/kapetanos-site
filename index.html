@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ΕΛΑΤΟΣ Γαλακτοκομικά | Τυροκομείο Άργος</title>
+    <title>ΕΛΑΤΟΣ Γαλακτοκομικά | Τυροκομείο Άργος - Φέτα Π.Ο.Π.</title>
     <meta
       name="description"
       content="Η ΕΛΑΤΟΣ Γαλακτοκομικά είναι τρίτης γενιάς τυροκομείο στο Άργος με φέτα, γραβιέρα, γιαούρτι και παραδοσιακά προϊόντα από αιγοπρόβειο γάλα."
@@ -15,7 +15,7 @@
     <meta name="robots" content="index, follow" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="el_GR" />
-    <meta property="og:title" content="ΕΛΑΤΟΣ Γαλακτοκομικά" />
+    <meta property="og:title" content="ΕΛΑΤΟΣ Γαλακτοκομικά | Τυροκομείο Άργος - Φέτα Π.Ο.Π." />
     <meta
       property="og:description"
       content="Παραδοσιακά και πιστοποιημένα τυροκομικά προϊόντα από το Σχινοχώρι Άργους."
@@ -24,6 +24,8 @@
     <meta property="og:url" content="https://afoikapetanou.gr/" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="canonical" href="https://afoikapetanou.gr/" />
+    <link rel="alternate" hreflang="el" href="https://afoikapetanou.gr/" />
+    <link rel="alternate" hreflang="en" href="https://afoikapetanou.gr/?lang=en" />
     <!-- Lightweight tab icon (~1KB SVG). Does not load the full logo JPEG on every page. -->
     <link rel="icon" href="./images/logo/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./styles.css" />
@@ -73,10 +75,10 @@
           <div>
             <p class="eyebrow" data-el="Από το 1963" data-en="Since 1963">Από το 1963</p>
             <h1
-              data-el="ΑΦΟΙ Δ. ΚΑΠΕΤΑΝΟΥ Ο.Ε. Βιομηχανία Τυροκομικών και Γαλακτοκομικών Προϊόντων"
-              data-en="KAPETANOS BROS. Dairy and Cheese Industry"
+              data-el="ΑΦΟΙ Δ. ΚΑΠΕΤΑΝΟΥ Ο.Ε. Βιομηχανία Τυροκομικών και Γαλακτοκομικών Προϊόντων - Φέτα Π.Ο.Π."
+              data-en="KAPETANOS BROS. Dairy and Cheese Industry - PDO Feta"
             >
-              ΑΦΟΙ Δ. ΚΑΠΕΤΑΝΟΥ Ο.Ε. Βιομηχανία Τυροκομικών και Γαλακτοκομικών Προϊόντων
+              ΑΦΟΙ Δ. ΚΑΠΕΤΑΝΟΥ Ο.Ε. Βιομηχανία Τυροκομικών και Γαλακτοκομικών Προϊόντων - Φέτα Π.Ο.Π.
             </h1>
             <p
               class="lead"
@@ -91,6 +93,13 @@
               data-en="KAPETANOS BROS. Dairy and Cheese Industry (ELATOS) has been active since 1963 in Schinochori, Argos."
             >
               ΑΦΟΙ Δ. ΚΑΠΕΤΑΝΟΥ Ο.Ε. Βιομηχανία Τυροκομικών και Γαλακτοκομικών Προϊόντων (ΕΛΑΤΟΣ) δραστηριοποιείται από το 1963 στο Σχινοχώρι Άργους.
+            </p>
+            <p
+              class="lead lead-3"
+              data-el="Παράγουμε Φέτα Π.Ο.Π. και επιλεγμένα γαλακτοκομικά προϊόντα, με σεβασμό στην πρώτη ύλη και την ποιότητα σε κάθε στάδιο."
+              data-en="We produce PDO Feta and selected dairy products, with respect for raw materials and quality at every stage."
+            >
+              Παράγουμε Φέτα Π.Ο.Π. και επιλεγμένα γαλακτοκομικά προϊόντα, με σεβασμό στην πρώτη ύλη και την ποιότητα σε κάθε στάδιο.
             </p>
             <div class="hero-actions">
               <a class="btn primary" href="#products" data-el="Δείτε προϊόντα" data-en="View products">Δείτε προϊόντα</a>
@@ -358,7 +367,13 @@
             </div>
             <div class="contact-row">
               <span class="contact-label" data-el="Email" data-en="Email">Email</span>
-              <a class="contact-value" href="mailto:elatos-tyria@hotmail.gr">elatos-tyria@hotmail.gr</a>
+              <a
+                class="contact-value"
+                href="mailto:elatos-tyria@hotmail.gr"
+                aria-label="elatos-tyria@hotmail.gr"
+              >
+                elatos-tyria [at] hotmail [dot] gr
+              </a>
             </div>
             <div class="contact-row">
               <span class="contact-label">Facebook</span>
@@ -379,13 +394,22 @@
             </div>
           </address>
           <div class="map-wrap">
-            <iframe
-              title="Google Maps ELATOS"
-              src="https://www.google.com/maps?q=%CE%A3%CF%87%CE%B9%CE%BD%CE%BF%CF%87%CF%8E%CF%81%CE%B9%20212%2000&output=embed"
-              loading="lazy"
-              allowfullscreen
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
+            <div class="map-fallback">
+              <a
+                class="map-link"
+                href="https://www.google.com/maps?q=%CE%A3%CF%87%CE%B9%CE%BD%CE%BF%CF%87%CF%8E%CF%81%CE%B9%20212%2000"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-el="Άνοιγμα χάρτη"
+                data-en="Open map"
+              >
+                Άνοιγμα χάρτη
+              </a>
+              <button id="loadMapBtn" type="button" class="map-btn" data-el="Εμφάνιση χάρτη" data-en="Show map">
+                Εμφάνιση χάρτη
+              </button>
+            </div>
+            <div id="mapContainer" class="map-container" aria-hidden="true"></div>
           </div>
         </div>
       </section>

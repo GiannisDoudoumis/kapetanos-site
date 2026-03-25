@@ -448,6 +448,51 @@ h2 {
   display: block;
 }
 
+.map-fallback {
+  padding: 1rem 1.1rem;
+  background: rgba(255, 255, 255, 0.65);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.map-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.map-link:hover {
+  text-decoration: underline;
+}
+
+.map-btn {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  border-radius: 999px;
+  padding: 0.55rem 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.map-btn:hover {
+  border-color: rgba(95, 60, 39, 0.45);
+}
+
+.map-container {
+  min-height: 340px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 600px) {
+  .map-fallback {
+    justify-content: flex-start;
+  }
+}
+
 .footer {
   padding: 1.1rem 0 1.4rem;
   border-top: 1px solid var(--border);
