@@ -64,3 +64,37 @@ try {
 }
 
 applyLanguage(initialLanguage);
+
+const cookieBanner = document.getElementById("cookieBanner");
+if (cookieBanner) {
+  const cookieAccept = document.getElementById("cookieAccept");
+  const cookieReject = document.getElementById("cookieReject");
+
+  let consent = null;
+  try {
+    consent = localStorage.getItem("cookieConsent");
+  } catch (error) {
+    // Ignore storage exceptions in private mode.
+  }
+
+  if (consent === "accepted" || consent === "rejected") {
+    cookieBanner.classList.add("cookie-hidden");
+  }
+
+  const closeWith = (value) => {
+    try {
+      localStorage.setItem("cookieConsent", value);
+    } catch (error) {
+      // Ignore storage exceptions in private mode.
+    }
+    cookieBanner.classList.add("cookie-hidden");
+  };
+
+  if (cookieAccept) {
+    cookieAccept.addEventListener("click", () => closeWith("accepted"));
+  }
+
+  if (cookieReject) {
+    cookieReject.addEventListener("click", () => closeWith("rejected"));
+  }
+}
