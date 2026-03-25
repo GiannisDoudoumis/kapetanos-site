@@ -149,16 +149,23 @@ if (cookieBanner) {
   }
 }
 
-// Lazy-load Google Maps iframe after user action.
+// Load Google Maps iframe automatically when the contact section is reached.
 const loadMapBtn = document.getElementById("loadMapBtn");
 const mapContainer = document.getElementById("mapContainer");
+const contactSection = document.getElementById("contact");
 
-if (loadMapBtn && mapContainer) {
+if (mapContainer) {
   const mapSrc =
     "https://www.google.com/maps?q=Kapetanou+D.+Bros+O.E.+Schinochori+212+00+Greece&output=embed";
 
-  loadMapBtn.addEventListener("click", () => {
-    if (mapContainer.querySelector("iframe")) return;
+  let mapLoaded = false;
+
+  const loadMap = () => {
+    if (mapLoaded) return;
+    if (mapContainer.querySelector("iframe")) {
+      mapLoaded = true;
+      return;
+    }
 
     const iframe = document.createElement("iframe");
     iframe.title = "Google Maps ELATOS";
@@ -172,5 +179,44 @@ if (loadMapBtn && mapContainer) {
     mapContainer.innerHTML = "";
     mapContainer.appendChild(iframe);
     mapContainer.setAttribute("aria-hidden", "false");
-  });
+    mapLoaded = true;
+
+    if (loadMapBtn) {
+      loadMapBtn.classList.add("cookie-hidden");
+    }
+  };
+
+  // User-friendly: if someone clicks, load immediately.
+  if (loadMapBtn) {
+    loadMapBtn.addEventListener("click", loadMap);
+  }
+
+  // Performance-friendly: auto-load only when section becomes visible.
+  if (contactSection && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            loadMap();
+            observer.disconnect();
+          }
+        });
+      },
+      { root: null, threshold: 0.15 }
+    );
+    observer.observe(contactSection);
+  } else {
+    // Fallback: load after a short delay.
+    window.setTimeout(loadMap, 1500);
+  }
 }
+
+// Image performance: decode async (doesn't change layout), keep hero image priority.
+document.querySelectorAll("img").forEach((img) => {
+  if (!img.decoding) {
+    img.decoding = "async";
+  }
+  if (img.getAttribute("src") && img.getAttribute("src").includes("/images/logo/company-logo")) {
+    img.fetchPriority = "high";
+  }
+});
