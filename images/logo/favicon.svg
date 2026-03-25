@@ -1,5 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="ELATOS">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="ΕΛΑΤΟΣ">
   <rect width="32" height="32" rx="6" fill="#5f3c27"/>
-  <path fill="#f5f4f2" d="M16 6l8 14H8z"/>
-  <rect x="14" y="18" width="4" height="8" fill="#f5f4f2" rx="1"/>
+  <path fill="#f5f4f2" d="M16 5.5L24.5 20H7.5z"/>
+  <rect x="13.5" y="17.5" width="5" height="9" fill="#f5f4f2" rx="1"/>
+  <circle cx="19.8" cy="15" r="2.2" fill="#f5f4f2"/>
 </svg>
