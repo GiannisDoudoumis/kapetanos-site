@@ -54,13 +54,12 @@ langButtons.forEach((button) => {
 let initialLanguage = "el";
 try {
   const storedLang = localStorage.getItem("siteLang");
+  const urlLang = new URLSearchParams(window.location.search).get("lang");
+
   if (storedLang === "el" || storedLang === "en") {
     initialLanguage = storedLang;
-  } else {
-    const urlLang = new URLSearchParams(window.location.search).get("lang");
-    if (urlLang === "en" || urlLang === "el") {
-      initialLanguage = urlLang;
-    }
+  } else if (urlLang === "en" || urlLang === "el") {
+    initialLanguage = urlLang;
   } else if (navigator.language && navigator.language.toLowerCase().startsWith("en")) {
     initialLanguage = "en";
   }
@@ -71,45 +70,14 @@ try {
 applyLanguage(initialLanguage);
 
 // ---------------------------
-// GA4 (free) with consent gate
+// GA4 Consent Mode (update)
 // ---------------------------
-const GA_MEASUREMENT_ID = "G-JQRC04HSDG";
-let ga4Initialized = false;
 let ga4ConsentApplied = false;
-
-const initGA4ConsentMode = () => {
-  if (ga4Initialized) return;
-  ga4Initialized = true;
-
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function () {
-    window.dataLayer.push(arguments);
-  };
-
-  // Inject gtag.js early so Google can detect it.
-  const script = document.createElement("script");
-  script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-  document.head.appendChild(script);
-
-  window.gtag("js", new Date());
-
-  // Default consent: denied until user accepts.
-  window.gtag("consent", "default", {
-    ad_storage: "denied",
-    analytics_storage: "denied",
-    ad_user_data: "denied",
-    ad_personalization: "denied",
-  });
-
-  window.gtag("config", GA_MEASUREMENT_ID, {
-    anonymize_ip: true,
-  });
-};
 
 const updateGA4Consent = (granted) => {
   if (!window.gtag) return;
   if (ga4ConsentApplied && granted === window.__gaConsentGranted) return;
+
   ga4ConsentApplied = true;
   window.__gaConsentGranted = granted;
 
@@ -120,9 +88,6 @@ const updateGA4Consent = (granted) => {
     ad_personalization: granted ? "granted" : "denied",
   });
 };
-
-// Initialize GA4 consent mode immediately (with denied defaults).
-initGA4ConsentMode();
 
 const cookieBanner = document.getElementById("cookieBanner");
 if (cookieBanner) {
