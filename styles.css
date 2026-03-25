@@ -508,6 +508,12 @@ h2 {
   font-size: 0.95rem;
 }
 
+.legal-name {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 .footer-wrap {
   display: flex;
   justify-content: space-between;
