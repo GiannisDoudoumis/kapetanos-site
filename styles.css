@@ -289,9 +289,10 @@ h2 {
   border-radius: 10px;
 }
 
-.product-card h4 {
+.product-title {
   margin: 0.7rem 0 0.25rem;
   font-size: 0.98rem;
+  font-weight: 700;
 }
 
 .product-card p {
@@ -320,9 +321,11 @@ h2 {
   object-fit: contain;
 }
 
-.cert-card h3 {
+.cert-title {
   font-size: 0.9rem;
   margin: 0.5rem 0 0;
+  font-weight: 700;
+  color: var(--text);
 }
 
 .award-card {
