@@ -70,6 +70,33 @@ try {
 
 applyLanguage(initialLanguage);
 
+// ---------------------------
+// GA4 (free) with consent gate
+// ---------------------------
+const GA_MEASUREMENT_ID = "G-JQRC04HSDG";
+let ga4Loaded = false;
+
+const loadGA4 = () => {
+  if (ga4Loaded) return;
+  ga4Loaded = true;
+
+  window.dataLayer = window.dataLayer || [];
+  // Define gtag immediately so config calls are queued until gtag.js loads.
+  window.gtag = function () {
+    window.dataLayer.push(arguments);
+  };
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+  document.head.appendChild(script);
+
+  window.gtag("js", new Date());
+  window.gtag("config", GA_MEASUREMENT_ID, {
+    anonymize_ip: true,
+  });
+};
+
 const cookieBanner = document.getElementById("cookieBanner");
 if (cookieBanner) {
   const cookieAccept = document.getElementById("cookieAccept");
@@ -93,6 +120,10 @@ if (cookieBanner) {
       // Ignore storage exceptions in private mode.
     }
     cookieBanner.classList.add("cookie-hidden");
+
+    if (value === "accepted") {
+      loadGA4();
+    }
   };
 
   if (cookieAccept) {
@@ -101,6 +132,11 @@ if (cookieBanner) {
 
   if (cookieReject) {
     cookieReject.addEventListener("click", () => closeWith("rejected"));
+  }
+
+  // If user already accepted previously, load GA4 now.
+  if (consent === "accepted") {
+    loadGA4();
   }
 }
 
