@@ -67,7 +67,27 @@ try {
   // Ignore storage exceptions in private mode.
 }
 
-applyLanguage(initialLanguage);
+// Optimize initial load: if we're already in Greek, avoid scanning/updating all translatable nodes.
+document.documentElement.lang = initialLanguage;
+langButtons.forEach((button) => {
+  const active = button.getAttribute("data-lang-set") === initialLanguage;
+  button.classList.toggle("active", active);
+  button.setAttribute("aria-pressed", String(active));
+});
+if (initialLanguage === "en") {
+  applyLanguage("en");
+}
+
+// Render email from parts (avoids writing a full plain email in HTML).
+const emailLink = document.getElementById("emailLink");
+const emailText = document.getElementById("emailText");
+if (emailLink && emailText) {
+  const user = emailLink.getAttribute("data-email-user") || "";
+  const domain = emailLink.getAttribute("data-email-domain") || "";
+  const email = `${user}@${domain}`;
+  emailText.textContent = email;
+  emailLink.href = `mailto:${email}`;
+}
 
 // ---------------------------
 // GA4 Consent Mode (update)
@@ -135,7 +155,7 @@ const mapContainer = document.getElementById("mapContainer");
 
 if (loadMapBtn && mapContainer) {
   const mapSrc =
-    "https://www.google.com/maps?q=%CE%A3%CF%87%CE%B9%CE%BD%CE%BF%CF%87%CF%8E%CF%81%CE%B9%20212%2000&output=embed";
+    "https://www.google.com/maps?q=Kapetanou+D.+Bros+O.E.+Schinochori+212+00+Greece&output=embed";
 
   loadMapBtn.addEventListener("click", () => {
     if (mapContainer.querySelector("iframe")) return;
