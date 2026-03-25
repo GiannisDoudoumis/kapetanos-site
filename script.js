@@ -211,12 +211,4 @@ if (mapContainer) {
   }
 }
 
-// Image performance: decode async (doesn't change layout), keep hero image priority.
-document.querySelectorAll("img").forEach((img) => {
-  if (!img.decoding) {
-    img.decoding = "async";
-  }
-  if (img.getAttribute("src") && img.getAttribute("src").includes("/images/logo/company-logo")) {
-    img.fetchPriority = "high";
-  }
-});
+// (Avoid looping through all images on load for better INP.)
